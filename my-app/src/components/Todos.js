@@ -2,7 +2,20 @@ import React, {useState} from 'react'
 import TodoItem from './todoItem'
 
 const Todos = () => {
-    const [todosState, setTodosState] = useState(['Viec 01', 'Viec 02', 'Viec 03'])
+    const [todosState, setTodosState] = useState([
+        {
+            title: 'Viec 1',
+            status: false
+        },
+        {
+            title: 'Viec 2',
+            status: false
+        },
+        {
+            title: 'Viec 3',
+            status: true
+        }
+    ])
 
     // const allTodos = []
 
