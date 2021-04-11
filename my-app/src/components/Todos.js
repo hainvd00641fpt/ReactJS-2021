@@ -1,12 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
+
 
 const Todos = () => {
+    const [todosState, setTodosState] = useState(['Viec 01', 'Viec 02', 'Viec 03'])
+
+    // const allTodos = []
+
+    // for (let todo of todosState) {
+    //     allTodos.push(<p>{todo}</p>)
+    // }
+
     return (
         <div>
-            <p>Viec 1</p>
-            <p>Viec 2</p>
-            <p>Viec 3</p>
+            {todosState.map(todo => {
+                return <p>{todo}</p>
+            })}
         </div>
+        // <div>
+        //     {allTodos}
+        // </div>
     )
 }
 
