@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-
+import TodoItem from './todoItem'
 
 const Todos = () => {
     const [todosState, setTodosState] = useState(['Viec 01', 'Viec 02', 'Viec 03'])
@@ -13,7 +13,7 @@ const Todos = () => {
     return (
         <div>
             {todosState.map(todo => {
-                return <p>{todo}</p>
+                return <TodoItem todoProps={todo}/>
             })}
         </div>
         // <div>
