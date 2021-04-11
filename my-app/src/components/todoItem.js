@@ -1,7 +1,9 @@
 import React from "react"
+import PropTypes from 'prop-types' 
 
 const TodoItem = props => {
     const todo = props.todoProps
+    const markStatus = props.markStatusFunc
 
     const todoItemStyle = {
         background: '#f4f4f4',
@@ -25,10 +27,18 @@ const TodoItem = props => {
     }
 
     return (<p style= {todoItemStyle}>
-        <input style={checkboxStyle} type="checkbox" name="" id=""/>
+        <input style={checkboxStyle} type="checkbox" 
+        onChange={markStatus.bind(this, todo.id)} 
+        checked={todo.status} 
+        />
         {todo.title}
         <button style={deleteButtonStyle} type="submit">Delete</button>
         </p>)
 }
 
+//PropTypes
+TodoItem.propTypes = {
+    todoProps: PropTypes.object.isRequired,
+    markStatusFunc :PropTypes.func.isRequired
+}
 export default TodoItem
