@@ -1,9 +1,10 @@
 import React from "react"
-import PropTypes from 'prop-types' 
+import PropTypes from 'prop-types'
 
 const TodoItem = props => {
     const todo = props.todoProps
     const markStatus = props.markStatusFunc
+    const delTodo = props.deleteTodoFunc
 
     const todoItemStyle = {
         background: '#f4f4f4',
@@ -12,7 +13,7 @@ const TodoItem = props => {
         textDecoration: todo.status ? 'line-through' : 'none',
         width: '50%'
     }
-    
+
     const deleteButtonStyle = {
         background: '#ff0000',
         color: '#fff',
@@ -26,19 +27,24 @@ const TodoItem = props => {
         float: 'left'
     }
 
-    return (<p style= {todoItemStyle}>
-        <input style={checkboxStyle} type="checkbox" 
-        onChange={markStatus.bind(this, todo.id)} 
-        checked={todo.status} 
+    return (<p style={todoItemStyle}>
+        <input style={checkboxStyle} type="checkbox"
+            onChange={markStatus.bind(this, todo.id)}
+            checked={todo.status}
         />
         {todo.title}
-        <button style={deleteButtonStyle} type="submit">Delete</button>
-        </p>)
+        <button
+            style={deleteButtonStyle}
+            onClick={delTodo.bind(this, todo.id)}
+            type="submit"
+        >Delete</button>
+    </p>)
 }
 
 //PropTypes
 TodoItem.propTypes = {
     todoProps: PropTypes.object.isRequired,
-    markStatusFunc :PropTypes.func.isRequired
+    markStatusFunc: PropTypes.func.isRequired,
+    deleteTodoFunc: PropTypes.func.isRequired
 }
 export default TodoItem
