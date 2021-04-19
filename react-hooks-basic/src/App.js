@@ -1,31 +1,68 @@
-import './App.scss';
-import React, {useState} from 'react'
-import ColorBox from './component/ColorBox';
-import TodoList from './component/TodoList';
-import TodoForm from './component/TodoForm';
+import "./App.scss";
+import React, { useState, useEffect } from "react";
+import queryString from "query-string";
+
+import ColorBox from "./component/ColorBox";
+import TodoList from "./component/TodoList";
+import TodoForm from "./component/TodoForm";
+import PostList from "./component/PostList";
+import Pagination from "./component/Pagination";
 
 function App() {
   const [todoList, setTodolist] = useState([
-    { id: 1, title: 'I love Easy Frontend! 😍 ' },
-    { id: 2, title: 'We love Easy Frontend! 🥰 ' },
-    { id: 3, title: 'They love Easy Frontend! 🚀 ' },
+    { id: 1, title: "I love Easy Frontend! 😍 " },
+    { id: 2, title: "We love Easy Frontend! 🥰 " },
+    { id: 3, title: "They love Easy Frontend! 🚀 " },
   ]);
 
-  function handleTodoClick(todo ) {
+  const [postList, setPostList] = useState([]);
+  const [pagination, setPagination] = useState({
+    _page: 1,
+    _limit: 10,
+    _totalRows: 1,
+  })
+
+  const [ filters, setFilters] = useState({
+    _limit: 10,
+    _page:1,
+  })
+
+  useEffect(() => {
+    async function fetchPostList() {
+      try {
+        const paramsString = queryString.stringify(filters);
+        const requestUrl =
+          `http://js-post-api.herokuapp.com/api/posts?${paramsString}`;
+        const response = await fetch(requestUrl);
+        const responseJSON = await response.json();
+        console.log({ responseJSON });
+
+        const { data, pagination } = responseJSON;
+        setPostList(data);
+        setPagination(pagination);
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+
+    fetchPostList();
+  }, [filters]);
+
+  function handleTodoClick(todo) {
     console.log(todo);
-    const index = todoList.findIndex( x => x.id === todo.id);
+    const index = todoList.findIndex((x) => x.id === todo.id);
     if (index < 0) return;
 
     const newTodoList = [...todoList];
     newTodoList.splice(index, 1);
     setTodolist(newTodoList);
-    }
+  }
 
   function handleTodoFormSubmit(formValues) {
-    console.log('form submit ', formValues);
+    console.log("form submit ", formValues);
 
     const newTodo = {
-      id: todoList.length +1,
+      id: todoList.length + 1,
       ...formValues,
     };
     const newTodoList = [...todoList];
@@ -34,12 +71,23 @@ function App() {
     setTodolist(newTodoList);
   }
 
+function handlePageChange(newPage) {
+  console.log('new page: ', newPage);
+  setFilters({
+    ...filters,
+    _page: newPage,
+  })
+}
+
   return (
     <div className="app">
-      <TodoForm onSubmit={handleTodoFormSubmit}/>
+      {/* <TodoForm onSubmit={handleTodoFormSubmit}/>
       <TodoList todos={todoList} onTodoClick= {handleTodoClick}  />
-      <ColorBox />
-
+      <ColorBox /> */}
+      <PostList posts={postList} />
+      <Pagination 
+      pagination={pagination}
+      onPageChange={handlePageChange} />
     </div>
   );
 }
