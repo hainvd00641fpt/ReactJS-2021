@@ -14,3 +14,7 @@
     4.react-hooks-basic
     React Hooks Basic 2020
     References: Easy Frontend
+
+    5.react-and-tailwindcss
+    This project reactjs basic use TailwindCSS framework
+    References: nghiepuit + self-search material
