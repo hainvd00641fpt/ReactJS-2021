@@ -67,14 +67,14 @@ export default class Content extends Component {
 
         return (
             <div>
-                <div className="w-full p-5">
-                    <form>
+                <div className="container p-5">
+                    {/* <form>
                         <label className="ml-5 block text-sm font-medium text-gray-500">Ten san pham</label>
                         <div>
                             <input type="text" ref="name" className="m-5 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
                         </div>
                         <button className="ml-5 px-4 py-2 bg-blue-500 text-white rounded" onClick={this.onAddCart}>Them</button>
-                    </form>
+                    </form> */}
                 </div>
                 <div className="flex flex-wrap -m-4 justify-center ">
                     { elements }
